@@ -5,7 +5,7 @@ public class Main {
 	public static ArrayList<Taxi> createTaxis(int n) {
 		ArrayList<Taxi>taxis=new ArrayList<>();
 		for(int i=1;i<=n;i++) {
-			Taxi taxi = new Taxi(i,'A',0,true);
+			Taxi taxi = new Taxi(i,'A',0,6,0);
 			taxis.add(taxi);
 		}
 		return taxis;
@@ -37,14 +37,22 @@ public class Main {
 					System.out.println("Please enter valid Pick Up/Drop Location");
 					break;
 				}
+				System.out.println("Enter the pickUp time");
+				int pickUpTime = sc.nextInt();
+				if(pickUpTime<6 || pickUpTime>21) {
+					System.out.println("Please enter valid Pick Up Time (6AM - 9PM)");
+					break;
+				}
+				int dropTime = pickUpTime+(Math.abs(pickUpLocation-dropLocation));
 				int distance = Math.abs(pickUpLocation-dropLocation)*15;
 				for(Taxi t : taxis) {
 					checkAvailability=false;
-					if(t.isFree()) {
-						t.setFree(false);
+					if(pickUpTime>=t.getDropTime()) {
 						int fare = calculateFare(distance,t.getFare());
 						t.setFare(t.getFare()+fare);
 						t.setCurrLocation(dropLocation);
+						t.setPickUpTime(pickUpTime);
+						t.setDropTime(dropTime);
 						checkAvailability=true;
 						System.out.println(t.getId()+" Taxi Booked");
 						break;
@@ -56,16 +64,12 @@ public class Main {
 				}
 			}
 			else if(choice==1) {
+				System.out.println("            Taxi Details          ");
+				System.out.println("----------------------------------");
+				System.out.println("ID  CurrentLocation  Fare  PickUpTime  DropTime");
+				System.out.println("----------------------------------");
 				for(Taxi t:taxis) {
-					if(!t.isFree()) {
-						System.out.println("           Booked Taxis          ");
-						System.out.println("----------------------------------");
-						System.out.println("ID  CurrentLocation  Fare");
-						System.out.println("----------------------------------");
-						System.out.println(t.getId()+"   "+t.getCurrLocation()+"  "+t.getFare());
-						t.setFree(true);
-						break;
-					}
+						System.out.println(t.getId()+"   "+t.getCurrLocation()+"                "+t.getFare()+"     "+t.getPickUpTime()+"             "+t.getDropTime());
 				}
 			}
 			else {

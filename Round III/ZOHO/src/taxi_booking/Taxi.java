@@ -4,14 +4,31 @@ public class Taxi {
 	private int id;
 	private char currLocation;
 	private int fare;
-	private boolean free;
+	private int pickUpTime;
+	private int dropTime;
 	
-	Taxi(int id, char currLocation, int fare, boolean free){
+	Taxi(int id, char currLocation, int fare,int pickUpTime, int dropTime){
 		this.id=id;
 		this.currLocation=currLocation;
 		this.fare=fare;
-		this.free=free;
+		this.pickUpTime=pickUpTime;
+		this.dropTime=dropTime;
 	}	
+	public int getPickUpTime() {
+		return pickUpTime;
+	}
+
+	public void setPickUpTime(int pickUpTime) {
+		this.pickUpTime = pickUpTime;
+	}
+
+	public int getDropTime() {
+		return dropTime;
+	}
+
+	public void setDropTime(int dropTime) {
+		this.dropTime = dropTime;
+	}
 
 	public char getCurrLocation() {
 		return currLocation;
@@ -39,16 +56,6 @@ public class Taxi {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-
-	
-	public boolean isFree() {
-		return free;
-	}
-
-	public void setFree(boolean free) {
-		this.free = free;
 	}
 	
 }
