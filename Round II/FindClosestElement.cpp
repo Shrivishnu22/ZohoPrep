@@ -35,4 +35,26 @@ int main()
     return 0;
 }
 
+//Implemented Without Sorting
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    vector<int>arr={7,12,4,18,27,37};
+    int sum=0;
+    for(int ele:arr)    sum+=ele;
+    int target=(sum/arr.size()),min=INT_MAX,res=0;
+    for(int i=0;i<arr.size();i++){
+        int diff = abs(target-arr[i]);
+        if(diff<min){
+            min=diff;
+            res=arr[i];
+        }
+    }
+    cout<<res;
+    return 0;
+}
 
